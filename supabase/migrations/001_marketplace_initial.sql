@@ -80,14 +80,14 @@ create table public.banners(id uuid primary key default gen_random_uuid(), title
 create table public.site_content(key text primary key, title text not null, body text not null check(length(body)<=20000), kind text not null default 'page', settings jsonb not null default '{}', updated_at timestamptz not null default now());
 create table public.user_settings(user_id uuid primary key references public.profiles(id) on delete cascade, preferences jsonb not null default '{}', notifications jsonb not null default '{}', updated_at timestamptz not null default now());
 create table public.audit_logs(id bigint generated always as identity primary key, actor_id uuid, action text not null, target text, result text not null default 'success', created_at timestamptz not null default now());
-create table private.rate_limits(key text primary key, window timestamptz not null, attempts integer not null);
+create table private.rate_limits(key text primary key, window_started timestamptz not null, attempts integer not null);
 create function public.check_rate(p_key text,p_limit integer,p_seconds integer) returns boolean language plpgsql security definer set search_path='' as $$
 declare n integer;
 begin
- insert into private.rate_limits as r(key,window,attempts) values(p_key,now(),1) on conflict(key) do update set
- attempts=case when r.window<now()-make_interval(secs=>p_seconds) then 1 else r.attempts+1 end,
- window=case when r.window<now()-make_interval(secs=>p_seconds) then now() else r.window end returning attempts into n;
- delete from private.rate_limits where window<now()-interval '2 days';
+ insert into private.rate_limits as r(key,window_started,attempts) values(p_key,now(),1) on conflict(key) do update set
+ attempts=case when r.window_started<now()-make_interval(secs=>p_seconds) then 1 else r.attempts+1 end,
+ window_started=case when r.window_started<now()-make_interval(secs=>p_seconds) then now() else r.window_started end returning attempts into n;
+ delete from private.rate_limits where window_started<now()-interval '2 days';
  return n<=p_limit;
 end; $$;
 revoke all on function public.check_rate(text,integer,integer) from public,anon,authenticated;
