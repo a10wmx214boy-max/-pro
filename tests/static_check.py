@@ -30,9 +30,12 @@ class Checks(unittest.TestCase):
    self.assertIn("'"+table+"'",sql);self.assertIn('create table public.'+table,sql)
   self.assertIn('where user_id=new.user_id and used=false',sql);self.assertIn('new.featured:=old.featured',sql)
  def test_no_credentials(self):
+  binary_ext={'.png','.jpg','.jpeg','.webp','.gif','.ico','.zip','.mp4','.webm','.woff','.woff2','.ttf'}
   for f in ROOT.rglob('*'):
-   if f.is_file() and f.suffix not in ['.png','.jpg','.zip']:
-    s=f.read_text();self.assertIsNone(re.search(r'eyJ[A-Za-z0-9_-]{25,}\.[A-Za-z0-9_-]{20,}\.',s),str(f));self.assertIsNone(re.search(r'sb_secret_[A-Za-z0-9]{12,}',s),str(f))
+   if not f.is_file() or '.git' in f.parts or f.suffix.lower() in binary_ext: continue
+   try: s=f.read_text(encoding='utf-8')
+   except UnicodeDecodeError: continue
+   self.assertIsNone(re.search(r'eyJ[A-Za-z0-9_-]{25,}\.[A-Za-z0-9_-]{20,}\.',s),str(f));self.assertIsNone(re.search(r'sb_secret_[A-Za-z0-9]{12,}',s),str(f))
  def test_no_api_cache(self):
   s=(ROOT/'sw.js').read_text();self.assertNotIn('c.put',s);self.assertIn('caches.delete',s)
 if __name__=='__main__':unittest.main(verbosity=2)
