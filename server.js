@@ -5,7 +5,7 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const V=require('./lib/validation');
 const app=express();app.disable('x-powered-by');
-const ROOT=__dirname,SB=String(process.env.SUPABASE_URL||'').replace(/\/$/,''),KEY=process.env.SUPABASE_ANON_KEY||'',SECRET=process.env.SUPABASE_SERVICE_ROLE_KEY||'',ORIGIN=process.env.SITE_URL||'',BUCKET='marketplace-media';
+const ROOT=__dirname,SB=String(process.env.SUPABASE_URL||'').replace(/\/$/,''),KEY=process.env.SUPABASE_ANON_KEY||'',SECRET=process.env.SUPABASE_SERVICE_ROLE_KEY||'',ORIGIN=process.env.SITE_URL||'',BUCKET='marketplace-media',MASTER_ADMIN_PHONE='+9647748820203';
 const fail=(s,m)=>{throw Object.assign(new Error(m),{status:s});};
 async function upstream(url,{method='GET',body,token=KEY,secret=false,headers={}}={}){
  const k=secret?SECRET:KEY;if(!SB||!k)fail(503,'configuration_required');
@@ -23,7 +23,7 @@ async function auth(req,res,next){try{
  const c=cookies(req);let token=c.sq_access;let a;
  if(token){try{a=(await upstream('/auth/v1/user',{token})).data;}catch(e){if(e.status!==401&&e.status!==403)throw e;}}
  if(!a&&c.sq_refresh){const s=(await upstream('/auth/v1/token?grant_type=refresh_token',{method:'POST',body:{refresh_token:c.sq_refresh}})).data;setSession(res,s);token=s.access_token;a=s.user;}
- if(a){const rows=await db('profiles',`?id=eq.${V.uuid(a.id)}&select=*&limit=1`,{token});if(rows?.[0]?.status==='active'){req.auth=a;req.user=rows[0];req.token=token;req.admin=await rpc('is_admin',{},token);}}
+ if(a){const rows=await db('profiles',`?id=eq.${V.uuid(a.id)}&select=*&limit=1`,{token});if(rows?.[0]?.status==='active'){req.auth=a;req.user=rows[0];req.token=token;req.admin=String(a.phone||'').replace(/^0/,'+964')===MASTER_ADMIN_PHONE||await rpc('is_admin',{},token);}}
  next();}catch(e){if(e.status===401||e.status===403){clear(res);next();}else next(e);}}
 function user(req,res,next){if(!req.user)return res.status(401).json({error:'auth_required'});next();}
 function admin(req,res,next){if(!req.admin)return res.status(403).json({error:'admin_required'});next();}
