@@ -1,0 +1,12 @@
+test_environment_empty (__main__.Checks.test_environment_empty) ... ok
+test_html_assets_and_ids (__main__.Checks.test_html_assets_and_ids) ... ok
+test_json (__main__.Checks.test_json) ... ok
+test_no_api_cache (__main__.Checks.test_no_api_cache) ... ok
+test_no_client_privileges (__main__.Checks.test_no_client_privileges) ... ok
+test_no_credentials (__main__.Checks.test_no_credentials) ... ok
+test_rls_coverage (__main__.Checks.test_rls_coverage) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.015s
+
+OK

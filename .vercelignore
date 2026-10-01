@@ -1,0 +1,10 @@
+.git
+node_modules
+.env
+.env.*
+!.env.example
+tests
+docs
+supabase
+README.md
+README_DEPLOY.md

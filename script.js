@@ -42,7 +42,7 @@ const num = n=>Number(n||0).toLocaleString('en-US');
 const iconHTML = (name, className='ui-icon') => `<img class="${className}" src="assets/icons/${esc(name)}.svg" alt="" aria-hidden="true"/>`;
 const catObj = id=>CATEGORIES.find(c=>c.id===id)||{name:'أخرى',nameEn:'Other',icon:'package'};
 const safeHttpUrl = value=>{ try{ const u=new URL(String(value||'').trim()); return ['http:','https:'].includes(u.protocol)?u.toString():''; }catch(_){ return ''; } };
-const API_AVAILABLE = /^https?:$/.test(location.protocol);
+const API_AVAILABLE = true;
 window.__SERVER_API__ = API_AVAILABLE;
 async function api(path, options={}){
   if(!API_AVAILABLE) throw new Error('api_unavailable');
@@ -98,11 +98,9 @@ function compressImage(file,maxSize=900,quality=.72){
 }
 
 /* ============ 3) التخزين ============ */
-const store = {
-  get(k,d){ try{ const v = localStorage.getItem(k); return v===null ? d : JSON.parse(v); }catch(e){ return d; } },
-  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }
-    catch(e){ toast('الذاكرة ممتلئة! استخدم صوراً أصغر','error'); return false; } }
-};
+// Volatile view state only: Supabase is the source of truth.
+const memoryState=new Map();
+const store={get(k,d){return memoryState.has(k)?memoryState.get(k):d;},set(k,v){memoryState.set(k,v);return true;}};
 
 /* ============ 4) المتغيرات العامة ============ */
 let users     = store.get(K.users,[]);
@@ -161,7 +159,7 @@ const PREF_DEFAULTS = {version:1,theme:'light',density:'comfortable',layout:'gri
 function readPrefs(){
   const saved = store.get(K.prefs,{});
   const legacy = store.get(K.theme,null);
-  const allowedTheme = ['light','midnight','sand','emerald','contrast','system'];
+  const allowedTheme = ['default','dark','light','midnight','ocean','emerald','sunset','luxury','minimal','glass','sand','contrast','system'];
   const allowedDensity = ['compact','comfortable','spacious'];
   const allowedLayout = ['grid','list'];
   return {...PREF_DEFAULTS,...saved,
@@ -352,7 +350,7 @@ function renderAuth(){
     };
     $('#logoutBtn').onclick = async ()=>{
       try{ await api('/api/logout',{method:'POST',body:'{}'}); }catch(_){ }
-      currentUser = null;
+      currentUser = null; favs=[]; msgs=[]; notifs=[]; users=[]; adminSession=false;
       store.set(K.session,null);
       renderAll();
       toast('تم تسجيل الخروج');
@@ -398,7 +396,7 @@ async function saveProfileSettings(form){
   const patch={name:String(f.get('name')||'').trim(),city:String(f.get('city')||''),email:String(f.get('email')||'').trim(),avatarUrl:safeHttpUrl(f.get('avatarUrl')),bio:String(f.get('bio')||'').trim().slice(0,1200),socialLinks,visibility:{...(currentUser.visibility||{}),showPhone:f.get('showPhone')==='on'}};
   if(!patch.name){toast('اكتب الاسم أولاً','error');return;}
   try{ const data=await api('/api/me',{method:'PATCH',body:JSON.stringify(patch)}); updateLocalUser(data.user); toast('تم حفظ الملف العام','success'); }
-  catch(err){ if(err.message==='api_unavailable'){ updateLocalUser(patch); toast('تم حفظ الملف على هذا الجهاز','success'); } else toast('تعذر حفظ الملف: '+err.message,'error'); }
+  catch(err){ toast('تعذر حفظ الملف: '+err.message,'error'); }
 }
 async function saveSecuritySettings(form){
   const f=new FormData(form), currentPassword=String(f.get('currentPassword')||''), newPassword=String(f.get('newPassword')||''), confirm=String(f.get('confirmPassword')||''), newEmail=String(f.get('newEmail')||'').trim(), newPhone=String(f.get('newPhone')||'').trim();
@@ -407,7 +405,7 @@ async function saveSecuritySettings(form){
   try{
     if(newEmail||newPhone){ const data=await api('/api/me/contact',{method:'POST',body:JSON.stringify({currentPassword,newEmail,newPhone})}); updateLocalUser(data.user); }
     if(newPassword) await api('/api/me/password',{method:'POST',body:JSON.stringify({currentPassword,newPassword})});
-    form.reset(); toast('تم تحديث أمان الحساب بنجاح','success');
+    form.reset(); toast(newEmail||newPhone?'تم إرسال طلب التغيير؛ يلزم إكمال التأكيد':'تم تحديث كلمة المرور','success');
   }catch(err){toast('تعذر تحديث الأمان: '+err.message,'error');}
 }
 async function openAdminEntry(){
@@ -416,7 +414,7 @@ async function openAdminEntry(){
 }
 async function renderAdminDashboard(){
   const box=$('#adminBox'); if(!box) return;
-  if(!API_AVAILABLE){ box.innerHTML='<div class="security-callout"><img class="ui-icon" src="assets/icons/shield-lock.svg" alt=""/><div><b>لوحة المدير تحتاج خادماً</b><p>GitHub Pages يعرض الملفات فقط. شغّل server.js على Node/Pella واضبط ADMIN_PHONE وADMIN_PASSWORD_HASH كأسرار بيئية.</p></div></div>'; return; }
+  if(!API_AVAILABLE){ box.innerHTML='<div class="security-callout"><img class="ui-icon" src="assets/icons/shield-lock.svg" alt=""/><div><b>لوحة المدير تحتاج خادماً</b><p>لوحة الإدارة تعتمد على جلسة Supabase Auth وحساب مسجل في جدول admins المحمي.</p></div></div>'; return; }
   try{
     const data=await api('/api/admin/data');
     box.innerHTML=`<div class="admin-stats"><div class="admin-stat"><b>${num(data.stats.users)}</b><span>المستخدمون</span></div><div class="admin-stat"><b>${num(data.stats.listings)}</b><span>الإعلانات</span></div><div class="admin-stat"><b>${num(data.stats.reports)}</b><span>البلاغات</span></div><div class="admin-stat"><b>${num(data.stats.views)}</b><span>المشاهدات</span></div></div>
@@ -556,7 +554,7 @@ function openDetail(id){
   const l = listings.find(x=>x.id===id);
   if(!l) return;
 
-  l.views = (l.views||0)+1;
+  api('/api/listings/'+encodeURIComponent(id)+'/view',{method:'POST',body:'{}'}).catch(()=>{});
   store.set(K.listings,listings);
   pushRecent(id);
 
@@ -760,13 +758,7 @@ if(offerForm) offerForm.onsubmit = e=>{
   if(amount<=0) return;
   const note = $('#offerNote')?.value.trim() || '';
   const text = `عرض شراء: ${num(amount)} ${CURRENCY}${note ? ` — ${note}` : ''}`;
-  msgs.push({id:uid(),from:currentUser.id,to:l.userId,listingId:l.id,text,ts:Date.now(),read:false,type:'offer',offerPrice:amount});
-  store.set(K.msgs,msgs);
-  pushNotif(l.userId,'msg',`${currentUser.name} أرسل عرض شراء على إعلانك`,l.id);
-  closeOverlay('#ovOffer');
-  toast('تم إرسال عرضك للبائع ✅','success');
-  activeOfferListingId = null;
-  updateBadges();
+  api('/api/messages',{method:'POST',body:JSON.stringify({to:l.userId,listingId:l.id,text})}).then(data=>{msgs.push(data.message);closeOverlay('#ovOffer');toast('تم إرسال العرض','success');activeOfferListingId=null;updateBadges();}).catch(err=>toast('تعذر إرسال العرض: '+err.message,'error'));
 };
 
 function setupAddBtn(){
@@ -1079,7 +1071,7 @@ function openInbox(){
   inboxBox.onclick = e=>{
     const c = e.target.closest('[data-chat-with]');
     if(!c) return;
-    msgs.forEach(m=>{ if(m.from===c.dataset.chatWith && m.to===currentUser.id) m.read = true; });
+    api('/api/messages/read',{method:'POST',body:JSON.stringify({from:c.dataset.chatWith})}).catch(()=>{}); msgs.forEach(m=>{ if(m.from===c.dataset.chatWith && m.to===currentUser.id) m.read = true; });
     store.set(K.msgs,msgs);
     updateBadges();
     closeOverlay('#ovInbox');
@@ -1106,30 +1098,20 @@ function openNotif(){
     <div class="notif ${n.read?'':'unread'}">
       <div class="notif-icon">${iconHTML(n.type==='msg'?'message':n.type==='fav'?'heart':n.type==='review'?'star':'bell')}</div>
       <div class="notif-body">
-        <b>${esc(n.text)}</b>
+        <b>${esc(n.text||n.title||'إشعار')}</b>
         <time>${timeAgo(n.ts)}</time>
       </div>
     </div>`).join('') : `<div class="empty" style="border:none;padding:40px 10px">
       ${iconHTML('bell-off','empty-icon')}<h3>لا توجد إشعارات</h3></div>`;
 
-  mine.forEach(n=>n.read=true);
+  api('/api/notifications/read',{method:'POST',body:'{}'}).catch(()=>{}); mine.forEach(n=>n.read=true);
   store.set(K.notifs,notifs);
   updateBadges();
   openOverlay('#ovNotif');
 }
 
 /* ============ 20) التقييمات ============ */
-function addReview(targetId, rating, text){
-  if(!currentUser){ openAuth('login'); return; }
-  if(currentUser.id===targetId){ toast('لا يمكنك تقييم نفسك','error'); return; }
-  if(reviews.some(r=>r.targetId===targetId && r.authorId===currentUser.id)){
-    toast('لقد قيّمت هذا البائع مسبقاً','error'); return;
-  }
-  reviews.push({ id:uid(), targetId, authorId:currentUser.id, rating, text, ts:Date.now() });
-  store.set(K.reviews,reviews);
-  pushNotif(targetId,'review',`${currentUser.name} قيّمك بـ ${rating} نجوم`);
-  toast('شكراً لتقييمك ⭐','success');
-}
+async function addReview(targetId,rating,text){if(!currentUser){openAuth('login');return;}try{const r=await api('/api/reviews',{method:'POST',body:JSON.stringify({targetId,rating,text})});reviews.push(r.review);toast('تم حفظ التقييم','success');openProfile(targetId);}catch(e){toast('تعذر حفظ التقييم: '+e.message,'error');}}
 
 /* ============ 21) الملف الشخصي ============ */
 function openProfile(userId){
@@ -1324,7 +1306,7 @@ function fillSelects(){
   const addCity = $('#addCity'); if(addCity) addCity.innerHTML = `<option value="">اختر المدينة</option>` + cityOpts;
   const regCity = $('#regCity'); if(regCity) regCity.innerHTML = `<option value="">اختر المدينة</option>` + cityOpts;
   const addCat = $('#addCat'); if(addCat) addCat.innerHTML = `<option value="">اختر القسم</option>` +
-    CATEGORIES.map(c=>`<option value="${c.id}">${c.em} ${c.name}</option>`).join('');
+    CATEGORIES.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
 }
 
 function resetAll(){
@@ -1378,15 +1360,16 @@ async function hydrateFromServer(){
   if(!API_AVAILABLE) return;
   try{
     const data=await api('/api/data');
-    if(Array.isArray(data.listings)){ listings=data.listings; store.set(K.listings,listings); }
+    if(Array.isArray(data.listings)){ listings=data.listings; users=data.users||[]; store.set(K.listings,listings); }
     try{
       const content=await api('/api/content'); const banners=(content.banners||[]).filter(b=>b.title&&b.status!=='hidden').slice(0,5); const track=$('#sliderTrack');
-      if(banners.length&&track){ track.innerHTML=banners.map((b,i)=>`<div class="slide slide-remote" style="background-image:linear-gradient(90deg,rgba(15,23,42,.94),rgba(29,78,216,.35)),url('${esc(safeHttpUrl(b.imageUrl)||'assets/marketplace-hero.jpg')}')"><div class="slide-content"><span class="slide-badge">سوق الشورجة</span><h2>${esc(b.title)}</h2><p>${esc(b.body||'اكتشف أحدث الإعلانات والعروض')}</p>${safeHttpUrl(b.targetUrl)?`<a class="btn btn-light" href="${esc(safeHttpUrl(b.targetUrl))}" target="_blank" rel="noopener noreferrer">اكتشف الآن</a>`:''}</div></div>`).join(''); initSlider(); }
+      if(banners.length&&track){ track.innerHTML=banners.map((b,i)=>`<div class="slide slide-remote" style="background-image:linear-gradient(90deg,rgba(15,23,42,.94),rgba(29,78,216,.35)),url('assets/marketplace-hero.jpg')"><div class="slide-content"><span class="slide-badge">سوق الشورجة</span><h2>${esc(b.title)}</h2><p>${esc(b.body||'اكتشف أحدث الإعلانات والعروض')}</p>${safeHttpUrl(b.targetUrl)?`<a class="btn btn-light" href="${esc(safeHttpUrl(b.targetUrl))}" target="_blank" rel="noopener noreferrer">اكتشف الآن</a>`:''}</div></div>`).join(''); track.querySelectorAll('.slide').forEach((slide,i)=>{if(banners[i]?.imageUrl){const img=document.createElement('img');img.src=banners[i].imageUrl;img.alt=banners[i].title;img.className='banner-uploaded-media';slide.prepend(img);}if(banners[i]?.videoUrl){const video=document.createElement('video');video.src=banners[i].videoUrl;video.controls=true;video.preload='metadata';video.className='banner-uploaded-media';slide.prepend(video);}});initSlider(); }
     }catch(_){ }
-    const me=await api('/api/me'); if(me.user){ currentUser=me.user; users=users.filter(u=>u.id!==currentUser.id).concat(currentUser); store.set(K.users,users); store.set(K.session,currentUser.id); }
+    const me=await api('/api/me'); if(me.user){ currentUser=me.user; users=users.filter(u=>u.id!==currentUser.id).concat(currentUser); store.set(K.users,users); store.set(K.session,currentUser.id); try{ const state=await api('/api/me/state'); favs=state.favs||[]; msgs=state.messages||[]; reviews=state.reviews||[]; notifs=state.notifications||[]; store.set(K.favs,favs); store.set(K.msgs,msgs); store.set(K.reviews,reviews); store.set(K.notifs,notifs); mergeUsers(state.users||[]); }catch(_){ } }
     try{ await api('/api/admin/me'); adminSession=true; }catch(_){ adminSession=false; }
+    try{const r=await api('/api/me/settings');if(r.settings.preferences)originalPrefs(r.settings.preferences);}catch(_){}
     renderAll();
-  }catch(_){ /* GitHub Pages أو وضع العرض المحلي: استخدم التخزين المحلي */ }
+  }catch(err){ renderAll(); if(err.status!==401)toast('تعذر جلب البيانات: '+err.message,'error'); }
 }
 
 function init(){
@@ -1533,62 +1516,18 @@ document.addEventListener('DOMContentLoaded', ()=>{
   const adminLogin=$('#formAdminLogin'); if(adminLogin) adminLogin.onsubmit=async e=>{
     e.preventDefault(); const f=new FormData(e.target);
     if(!API_AVAILABLE){toast('لوحة المدير تحتاج تشغيل server.js وليس GitHub Pages','error');return;}
-    try{await api('/api/admin/login',{method:'POST',body:JSON.stringify({phone:f.get('phone'),pass:f.get('pass')})}); adminSession=true; e.target.reset(); closeOverlay('#ovAdminLogin'); await renderAdminDashboard(); openOverlay('#ovAdmin'); toast('تم دخول المدير بأمان','success');}
+    try{await api('/api/admin/login',{method:'POST',body:JSON.stringify({email:f.get('email'),pass:f.get('pass')})}); adminSession=true; e.target.reset(); closeOverlay('#ovAdminLogin'); await renderAdminDashboard(); openOverlay('#ovAdmin'); toast('تم دخول المدير بأمان','success');}
     catch(err){toast(err.message==='admin_secret_not_configured'?'لم يتم ضبط سر المدير على الخادم':'بيانات المدير غير صحيحة','error');}
   };
   document.addEventListener('click',e=>{const a=e.target.closest('[data-info]');if(a){e.preventDefault();openInfo(a.dataset.info);}});
-  $('#footerYoutube')?.addEventListener('click',e=>{e.preventDefault();toast('رابط يوتيوب سيضاف من لوحة المدير');});
+  
   setupPreferences();
 
-  /* --- تسجيل الدخول --- */
-  const formLogin = $('#formLogin');
-  if(formLogin){
-    formLogin.onsubmit = async e=>{
-      e.preventDefault();
-      const f = new FormData(e.target);
-      const phone = String(f.get('phone')).trim();
-      const pass  = String(f.get('pass'));
-      if(API_AVAILABLE){
-        try{ const data=await api('/api/login',{method:'POST',body:JSON.stringify({phone,pass})}); currentUser=data.user; users=users.filter(u=>u.id!==currentUser.id).concat(currentUser); store.set(K.users,users); store.set(K.session,currentUser.id); closeOverlay('#ovAuth'); e.target.reset(); renderAll(); toast('مرحباً، '+currentUser.name.split(' ')[0]+' 👋','success'); return; }
-        catch(err){ if(err.message!=='api_unavailable' && err.status!==404){toast('بيانات الدخول غير صحيحة','error');return;} }
-      }
-      const u = users.find(x=>x.phone===phone && x.pass===pass);
-      if(!u){ toast('بيانات الدخول غير صحيحة','error'); return; }
-      currentUser = u;
-      store.set(K.session,u.id);
-      closeOverlay('#ovAuth');
-      e.target.reset();
-      renderAll();
-      toast('مرحباً، '+u.name.split(' ')[0]+' 👋','success');
-    };
-  }
+  const formLogin=$('#formLogin');
+  if(formLogin)formLogin.onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);const btn=e.target.querySelector('[type=submit]');btn.disabled=true;try{const data=await api('/api/login',{method:'POST',body:JSON.stringify({email:f.get('email'),pass:f.get('pass')})});currentUser=data.user;users=users.filter(u=>u.id!==currentUser.id).concat(currentUser);closeOverlay('#ovAuth');e.target.reset();await hydrateFromServer();toast('تم تسجيل الدخول','success');}catch(err){toast('تعذر الدخول: '+err.message,'error');}finally{btn.disabled=false;}};
 
-  /* --- التسجيل --- */
-  const formReg = $('#formReg');
-  if(formReg){
-    formReg.onsubmit = async e=>{
-      e.preventDefault();
-      const f = new FormData(e.target);
-      const name  = String(f.get('name')).trim();
-      const phone = String(f.get('phone')).trim();
-      const city  = String(f.get('city'));
-      const pass  = String(f.get('pass'));
-      if(API_AVAILABLE){
-        try{ const data=await api('/api/register',{method:'POST',body:JSON.stringify({name,phone,city,pass})}); currentUser=data.user; users=users.filter(u=>u.id!==currentUser.id).concat(currentUser); store.set(K.users,users); store.set(K.session,currentUser.id); closeOverlay('#ovAuth'); e.target.reset(); renderAll(); toast('تم إنشاء حسابك 🎉','success'); return; }
-        catch(err){ if(err.status!==404){toast(err.message==='phone_exists'?'الرقم مسجل مسبقاً':'تعذر إنشاء الحساب','error');return;} }
-      }
-      if(users.some(u=>u.phone===phone)){ toast('الرقم مسجل مسبقاً','error'); return; }
-      const u = {id:uid(), name, phone, city, pass, ts:Date.now(), verified:false, bio:''};
-      users.push(u);
-      store.set(K.users,users);
-      currentUser = u;
-      store.set(K.session,u.id);
-      closeOverlay('#ovAuth');
-      e.target.reset();
-      renderAll();
-      toast('تم إنشاء حسابك 🎉','success');
-    };
-  }
+  const formReg=$('#formReg');
+  if(formReg)formReg.onsubmit=async e=>{e.preventDefault();const f=new FormData(e.target);const btn=e.target.querySelector('[type=submit]');btn.disabled=true;try{await api('/api/register',{method:'POST',body:JSON.stringify({name:f.get('name'),email:f.get('email'),city:f.get('city'),pass:f.get('pass')})});e.target.reset();switchAuthTab('login');toast('راجع بريدك لتأكيد الحساب قبل الدخول','success');}catch(err){toast('تعذر التسجيل: '+err.message,'error');}finally{btn.disabled=false;}};
 
   /* --- الرسائل --- */
   const chatSend = $('#chatSend');
@@ -1661,7 +1600,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   });
 });
 
-/* ============ 27) جسر المزامنة (sync.js) ============ */
+/* ============ 27) تحديث الحالة المحلية للواجهة ============ */
 window.__reloadData = function () {
   users    = store.get(K.users, []);
   listings = store.get(K.listings, []);
@@ -1738,7 +1677,7 @@ function ensureEnhancementsUI(){
 
   const ec = $('#editCat');
   const eci = $('#editCity');
-  if(ec && !ec.options.length) ec.innerHTML = CATEGORIES.map(c=>`<option value="${c.id}">${c.em} ${c.name}</option>`).join('');
+  if(ec && !ec.options.length) ec.innerHTML = CATEGORIES.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
   if(eci && !eci.options.length) eci.innerHTML = CITIES.map(c=>`<option value="${c}">${c}</option>`).join('');
 
   const saveEdit = $('#saveEditBtn');
@@ -1775,8 +1714,9 @@ function saveEditedListing(){
   l.price = Number($('#editPrice').value)||0;
   l.phone = $('#editPhone').value.trim() || currentUser.phone;
   l.desc = $('#editDesc').value.trim();
-  l.featured = $('#editFeatured').checked;
+  // Promotion is immutable for sellers and enforced by PostgreSQL.
   l.updatedAt = Date.now();
+  if(API_AVAILABLE){ api('/api/listings/'+encodeURIComponent(l.id),{method:'PUT',body:JSON.stringify(l)}).then(data=>{Object.assign(l,data.listing);store.set(K.listings,listings);closeOverlay('#ovEdit');renderAll();toast('تم حفظ تعديلات الإعلان ✅','success');setTimeout(()=>openDetail(l.id),150);}).catch(err=>toast('تعذر حفظ التعديلات: '+err.message,'error')); return; }
   store.set(K.listings, listings);
   closeOverlay('#ovEdit');
   renderAll();
@@ -1784,34 +1724,7 @@ function saveEditedListing(){
   setTimeout(()=>openDetail(l.id),150);
 }
 
-function toggleFeaturedListing(id){
-  if(!currentUser){ openAuth('login'); return; }
-  const l = listings.find(x=>x.id===id);
-  if(!l || l.userId!==currentUser.id){ toast('لا تملك صلاحية ترقية هذا الإعلان','error'); return; }
-  l.featured = !l.featured;
-  l.updatedAt = Date.now();
-  store.set(K.listings,listings);
-  renderAll();
-  toast(l.featured ? 'تم تفعيل تمييز الإعلان ⭐' : 'تم إلغاء تمييز الإعلان');
-  if($('#ovMy')?.classList.contains('open')) openMy();
-}
-
-async function openInfo(type){
-  ensureEnhancementsUI();
-  const data = {
-    about: ['عن سوق الشورجة', '<p>سوق الشورجة منصة عراقية لعرض وشراء وبيع مختلف المنتجات والإعلانات، مع بحث وفلترة ومفضلة ومحادثات وتقييمات.</p><p class="hint">يمكنك نشر إعلان، التواصل مع البائع، حفظ الإعلانات ومتابعة إشعاراتك من نفس الموقع.</p>'],
-    help: ['المساعدة', '<p><b>البحث:</b> اكتب اسم المنتج أو المدينة ثم استخدم الفلاتر.</p><p><b>النشر:</b> سجّل الدخول واضغط «أضف إعلان» وأضف الصور والتفاصيل.</p><p><b>التواصل:</b> افتح الإعلان واضغط «تواصل مع البائع».</p><p><b>المفضلة:</b> اضغط رمز القلب لحفظ الإعلان والرجوع إليه لاحقاً.</p>'],
-    contact: ['تواصل معنا', '<p>للتواصل مع إدارة الموقع استخدم قسم الإبلاغ داخل الإعلان للمشاكل المتعلقة بالإعلانات.</p><p class="hint">يمكن إضافة بريد أو رقم دعم رسمي لاحقاً من إعدادات المشروع.</p>'],
-    terms: ['الشروط والأحكام', '<p>استخدم المنصة لنشر إعلانات حقيقية ومعلومات صحيحة، ولا تنشر محتوى مخالفاً للقوانين أو يضر بالمستخدمين.</p>'],
-    privacy: ['سياسة الخصوصية', '<p>هذا الإصدار يخزن البيانات محلياً في المتصفح، ومع تشغيل السيرفر تتم مزامنتها مع ملف <code>data.json</code>.</p><p class="hint">لا تشارك كلمات المرور أو البيانات الحساسة مع أي شخص.</p>']
-  };
-  const d = data[type] || data.about;
-  let title=d[0], body=d[1];
-  if(API_AVAILABLE){ try{ const remote=await api('/api/content'); const item=remote.content?.[type]; if(item){title=item.title;body=`<p>${esc(item.body)}</p>`;} }catch(_){ } }
-  $('#infoTitle').textContent = title;
-  $('#infoBody').innerHTML = body;
-  openOverlay('#ovInfo');
-}
+function toggleFeaturedListing(){toast('الترويج المجاني يُمنح لأول إعلان منشور فقط ولا يمكن إعادة استخدامه');}
 
 function performSearch(q){
   filters.q = String(q||'').trim();
@@ -1860,6 +1773,7 @@ function shareListing(id){
 
 function toggleFav(listingId){
   if(!currentUser){ openAuth('login'); toast('سجّل الدخول أولاً'); return; }
+  if(API_AVAILABLE){ api('/api/favorites',{method:'POST',body:JSON.stringify({listingId})}).then(data=>{favs=data.favs||[];store.set(K.favs,favs);renderListings();updateBadges();}).catch(err=>toast('تعذر حفظ المفضلة: '+err.message,'error')); return; }
   const idx = favs.findIndex(f=>f.userId===currentUser.id && f.listingId===listingId);
   const l = listings.find(x=>x.id===listingId);
   if(idx>-1){
@@ -1881,6 +1795,7 @@ function sendMsg(){
   if(!txt || !activeChat) return;
   const target = activeChat.otherId;
   const listingId = activeChat.listingId || null;
+  if(API_AVAILABLE){ api('/api/messages',{method:'POST',body:JSON.stringify({to:target,listingId,text:txt})}).then(data=>{msgs.push(data.message);store.set(K.msgs,msgs);inp.value='';renderChat();updateBadges();}).catch(err=>toast('تعذر إرسال الرسالة: '+err.message,'error')); return; }
   msgs.push({id:uid(),from:currentUser.id,to:target,listingId,text:txt,ts:Date.now(),read:false});
   store.set(K.msgs,msgs);
   const l = listingId ? listings.find(x=>x.id===listingId) : null;
@@ -1898,7 +1813,8 @@ function openReport(id){
   const s=$('#sendReport');
   if(s){
     s.onclick=()=>{
-      const reports=store.get('sq_reports',[]);
+      if(API_AVAILABLE){ api('/api/reports',{method:'POST',body:JSON.stringify({listingId:id,reason:$('#reportReason')?.value||'other',note:$('#reportNote')?.value.trim()||''})}).then(()=>{closeOverlay('#ovReport');toast('تم حفظ البلاغ وإرساله للإدارة','success');}).catch(err=>toast('تعذر إرسال البلاغ: '+err.message,'error')); return; }
+      if(API_AVAILABLE){ api('/api/reports',{method:'POST',body:JSON.stringify({listingId:id,reason:$('#reportReason')?.value||'other',note:$('#reportNote')?.value.trim()||''})}).then(()=>{closeOverlay('#ovReport');toast('تم حفظ البلاغ وإرساله للإدارة','success');}).catch(err=>toast('تعذر إرسال البلاغ: '+err.message,'error')); return; } const reports=store.get('sq_reports',[]);
       const exists=reports.some(x=>x.listingId===id && x.userId===currentUser.id);
       if(exists){ toast('سبق أن أبلغت عن هذا الإعلان','error'); return; }
       const report={
@@ -1949,6 +1865,7 @@ function openMy(){
       e.stopPropagation();
       if(!confirm('حذف هذا الإعلان؟')) return;
       const id=d.dataset.delmy;
+      if(API_AVAILABLE){ api('/api/listings/'+encodeURIComponent(id),{method:'DELETE',body:'{}'}).then(()=>{listings=listings.filter(l=>l.id!==id);favs=favs.filter(f=>f.listingId!==id);store.set(K.listings,listings);store.set(K.favs,favs);renderAll();openMy();toast('تم الحذف','success');}).catch(err=>toast('تعذر الحذف: '+err.message,'error')); return; }
       listings=listings.filter(l=>l.id!==id);
       favs=favs.filter(f=>f.listingId!==id);
       recent=recent.filter(x=>x!==id);

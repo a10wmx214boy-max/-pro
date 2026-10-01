@@ -1,4 +1,32 @@
 {
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "index.html",
+          "style.css",
+          "script.js",
+          "assets/**",
+          "icon-192.png",
+          "icon-512.png",
+          "manifest.webmanifest",
+          "sw.js",
+          "lib/**",
+          "upgrade.js",
+          "register-sw.js"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ],
   "cleanUrls": true,
   "trailingSlash": false
 }

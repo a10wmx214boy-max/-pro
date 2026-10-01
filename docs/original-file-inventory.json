@@ -1,0 +1,1142 @@
+[
+  {
+    "file": ".env.example",
+    "bytes": 516,
+    "sha256": "7698512b4f88beed7a640180e3235296f139bba461066aede928a02362684409",
+    "lines": 15,
+    "links": [
+      "https://YOUR_PROJECT_REF.supabase.co"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 1,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": ".gitignore",
+    "bytes": 90,
+    "sha256": "df9970b67cbb70990e837dff1e21a303cc52ddb657bf36a964a6121875589117",
+    "lines": 9,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": ".vercelignore",
+    "bytes": 126,
+    "sha256": "bb853254a2ede2f7875785a92c11d24758b10cbd2897ed7256b314401f20b59e",
+    "lines": 12,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "Procfile",
+    "bytes": 15,
+    "sha256": "906c0de1097adbf5f1b72dc770717692c80dfde4de284364b43ccf24096fc33c",
+    "lines": 1,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "README_DEPLOY.md",
+    "bytes": 3066,
+    "sha256": "b05145ed59433f142542716de82cc6e9101ec8c8bde6e30f5e558ebf98321e80",
+    "lines": 102,
+    "links": [
+      "https://YOUR-VERCEL-DOMAIN/health"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 3,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "app.js",
+    "bytes": 76,
+    "sha256": "0cfe980589b8e64c4ceed3951ea671f34c5f149809f997b448afaf3ad542873c",
+    "lines": 2,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/ball-football.svg",
+    "bytes": 573,
+    "sha256": "3741b9506fbebfcbc8b2e4fed902ead9fdb91358ddaff5f7bb0e847170c85ef3",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/bell-off.svg",
+    "bytes": 576,
+    "sha256": "bd484b006e1db5bc11f21aac63d6888c43d17b00b36b3d64b386c1e4a4f27b3b",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/bell.svg",
+    "bytes": 501,
+    "sha256": "470d39082cfbf44f0b4b0588d8f9f1fd2c211b09dc60d0304e91a24a3aeef32e",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/box.svg",
+    "bytes": 464,
+    "sha256": "ec56a42b85321b6844629a169605adedb0a8929babe86a06e6b96609603a2705",
+    "lines": 22,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/brand-telegram.svg",
+    "bytes": 442,
+    "sha256": "4a1023bb65efb2a268a3e4740225c369fbdaae87fba3d48c87ea2dd526c4cfbe",
+    "lines": 19,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/brand-youtube.svg",
+    "bytes": 482,
+    "sha256": "c696638a0475e291a0f3fef2f9cf4275b25b8d48b13ce660a563516e9acb7813",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/briefcase.svg",
+    "bytes": 571,
+    "sha256": "e3bf4e397b34b5dcfc4efa2444b35bbc8872490145a4b747764e3a7929f57292",
+    "lines": 22,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/camera-plus.svg",
+    "bytes": 594,
+    "sha256": "08de0d88dbcc204e3b720cc7bf583331fb000157b1b3087a363e2f0eb2617c12",
+    "lines": 22,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/camera.svg",
+    "bytes": 560,
+    "sha256": "24c3560560e6177528dada3805efab129c5667ef97b0ea342a21d0a34032baa8",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/car.svg",
+    "bytes": 537,
+    "sha256": "c95af3091f703f3badf544aa54def72eb60238780932451669fa91d566beb186",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/chart-bar.svg",
+    "bytes": 668,
+    "sha256": "5fbe60a66fbebaf0a06d4b5bede3af05301d9f580c4f8f7bd65a39077389e4ae",
+    "lines": 22,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/clock.svg",
+    "bytes": 431,
+    "sha256": "bb582eb2c9d6709d285623bea586e1f532872a9db3d2391308360636e93d199d",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/cloud-check.svg",
+    "bytes": 635,
+    "sha256": "3be695629a1b308d68abeb5b6fd0c09d31bbefab5dc3c16d9c6bad99dcdfab8f",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/dashboard.svg",
+    "bytes": 485,
+    "sha256": "8943c507c7c416b22194d986140b8b1718b2f2255539c79b8c6b3657a0b9e140",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/device-gamepad-2.svg",
+    "bytes": 634,
+    "sha256": "4b3cef2b29fa307cc884bd72365174e3113dcb7ee7a794ea6590621a1e20405d",
+    "lines": 23,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/device-laptop.svg",
+    "bytes": 487,
+    "sha256": "f773cac887378f6da0d2bfa206e62ce28c6ec6c723cb9f6c28db67ac9def9faf",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/device-mobile.svg",
+    "bytes": 510,
+    "sha256": "b716bffe6840f23dd39a2b16fa9cc18bc24ba94e82464521f78269b7e21fe705",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/external-link.svg",
+    "bytes": 487,
+    "sha256": "951e270416621680e98e80224ef6466a43fc9db3f5105a2005bd621b02e30634",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/eye-off.svg",
+    "bytes": 687,
+    "sha256": "4d84bc5601058a0374312c6f4c4fcd9b29433f4d2014149af63583373a74cea4",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/eye.svg",
+    "bytes": 532,
+    "sha256": "49dc6603fb775c31b004431972b66075b1a239dc98489f638db73c66386702e4",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/flag.svg",
+    "bytes": 457,
+    "sha256": "2f6eff19f8284b3379d4330b264376e7ae5496e12b8da970b3537b36f795c881",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/headphones.svg",
+    "bytes": 598,
+    "sha256": "bc9aea3b2e97e91f280bdc9e37c5cda72d3eed2a1d32c97e219177e154eeae97",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/heart.svg",
+    "bytes": 449,
+    "sha256": "f9f42a4d4ae0aca8f01dde4a7a255eff7af26ed0ee133b1458e9d3ff257464d6",
+    "lines": 19,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/home.svg",
+    "bytes": 524,
+    "sha256": "6edebd7f9ac62a73e882f1bad7a4816fd4799e29bab2b27cf626b0f1708a9a20",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/layout-grid.svg",
+    "bytes": 729,
+    "sha256": "234f17d3e6212587c7a97a4fb1a68f824adf13365a9ac330dbae42e624488794",
+    "lines": 22,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/layout-list.svg",
+    "bytes": 547,
+    "sha256": "247ea4f1a6d61994bb0897d1cad7debc044829e0f2b5c9904f00eb65f4eace40",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/link.svg",
+    "bytes": 552,
+    "sha256": "0c1448dddf85857b80da2c51ddb5a27399013d3830eb756654cce2eef93fff33",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/lock.svg",
+    "bytes": 548,
+    "sha256": "19ef0a4888688ea415b611b7c9e085134683a7fbdce5517be1f722a65e28928d",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/map-pin.svg",
+    "bytes": 491,
+    "sha256": "980c1cccd35d4244cf1625306e900d9b54f512e1ba253c61ffb2b1374746f04d",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/message.svg",
+    "bytes": 525,
+    "sha256": "5e6051240cefb2a1ef76952636aada86f7a32b1594be38fea71289a9d4643f7e",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/package.svg",
+    "bytes": 525,
+    "sha256": "f74504c6452c0e0e555280dfff5199c02fae0381b6c3d101afe88809a78887de",
+    "lines": 23,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/palette.svg",
+    "bytes": 689,
+    "sha256": "27a5a19ae4b0f73ff4089b7f5a6c8fdf17f19ecc853e19fa04494f083943e778",
+    "lines": 22,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/paw.svg",
+    "bytes": 1537,
+    "sha256": "e67d565c67e6523cb0ef748202ccd33ef853dd6e87da1fe41c19052bc6f1fee4",
+    "lines": 23,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/phone.svg",
+    "bytes": 481,
+    "sha256": "1b75d2a1fb7ac21d8c3db9e6e729b5445c72ae793e24be65b245d88c38622ab4",
+    "lines": 19,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/refresh.svg",
+    "bytes": 475,
+    "sha256": "12927e445fd886d0e0fd538ba60fbea56ff8a456204481e233f77ad322e65062",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/settings.svg",
+    "bytes": 944,
+    "sha256": "d71136dfd83ad19efe1777d01768a5d23d7b295de5dde3b1fccc50806809a423",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/shield-lock.svg",
+    "bytes": 533,
+    "sha256": "06e9d35ba2ec45beca44dca1ca30ef58700cc882fb60099bb23aad7ad49469c0",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/shirt.svg",
+    "bytes": 445,
+    "sha256": "851a2a15d989bbe5c17da5ce877a9fb72204e65f96011d22e383e55bb7a7a553",
+    "lines": 19,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/shopping-bag.svg",
+    "bytes": 547,
+    "sha256": "5b02f93914223f96ad1ea90ab4e3ce5fb2b22099ee9d5b8cda436839a3086b30",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/sofa.svg",
+    "bytes": 525,
+    "sha256": "231585593c10ac3c795f33dd75606037d83230208a931dc166ff78e87e47bc5a",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/star.svg",
+    "bytes": 489,
+    "sha256": "33727ef0a469dbe7147e5cfe5a875a28b97809b0eac99a2e6886679369d43934",
+    "lines": 19,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/tag.svg",
+    "bytes": 571,
+    "sha256": "386c1de9d0b063365ffa484d165d7c08764b92180a87569c10a7c270f699795a",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/tools.svg",
+    "bytes": 575,
+    "sha256": "aac6ae77bd7d24d3819ed1ccc7262ca1b57444b541fc3dc90ee837bbbe6a6e7c",
+    "lines": 24,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/truck.svg",
+    "bytes": 538,
+    "sha256": "de73dc61281287ced8cd4417809167bb73d02fb6e821975456a7c48c44d66d60",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/upload.svg",
+    "bytes": 467,
+    "sha256": "b6d9fe0e24b1c889d1edba29268ba8e3759792a381b43fb9268f603caaea98f1",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/user-edit.svg",
+    "bytes": 525,
+    "sha256": "e34b2682ca78698a576e9f13723e145e17cdbf0220073b28f5f75a1eacf8803d",
+    "lines": 21,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/users.svg",
+    "bytes": 550,
+    "sha256": "ee1ec96e17087cbcb5663d84d2e5e1e46d56356c19d88bc42f8100154c1e298f",
+    "lines": 22,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/icons/video.svg",
+    "bytes": 559,
+    "sha256": "3ad14302fa53dee21672ff2362970dc1c0a11da615243a29c6a095cc4fe76657",
+    "lines": 20,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "assets/marketplace-hero.jpg",
+    "bytes": 185782,
+    "sha256": "a9d2d275183c50d340f72799cf9cb04474184af16427addb2f4d1897ac88bef4",
+    "image": "verified"
+  },
+  {
+    "file": "assets/marketplace-shopping.jpg",
+    "bytes": 366311,
+    "sha256": "5c0790ece6229dfd30c64d065ef4eeec8eaad6ce097e12c335b1b1e4de18e782",
+    "image": "verified"
+  },
+  {
+    "file": "assets/marketplace-tech.jpg",
+    "bytes": 1013429,
+    "sha256": "2a7514d89022a709974c6821f14cc9107cee71b5997c244647b15b06782fa9dd",
+    "image": "verified"
+  },
+  {
+    "file": "icon-192.png",
+    "bytes": 1279,
+    "sha256": "67e115c3805c0f3f2f32208f0ae58be9bad053353260e8d5976114a4167ee740",
+    "image": "verified"
+  },
+  {
+    "file": "icon-512.png",
+    "bytes": 3439,
+    "sha256": "d6502bc83331518446c73a2771e030b923032ef06af80d5974b33ee163395f4d",
+    "image": "verified"
+  },
+  {
+    "file": "index.html",
+    "bytes": 43391,
+    "sha256": "c1ce23298c992546f37aaf7b03b3df0915918d2618e52777936beb800e531c72",
+    "lines": 688,
+    "links": [
+      "http://www.w3.org/2000/svg",
+      "https://...",
+      "https://t.me/...",
+      "https://t.me/HarryScloser6"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "manifest.webmanifest",
+    "bytes": 425,
+    "sha256": "44cf23330eed31e2b4e5dfaab37672379a856ac208eb9c37e9186f9539e1e24c",
+    "lines": 22,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "package-lock.json",
+    "bytes": 31093,
+    "sha256": "dbe464de9e22b48084019c4633c55cc67ec8480a863ffc9d461411295dfde8d6",
+    "lines": 892,
+    "links": [
+      "https://github.com/sponsors/ljharb",
+      "https://github.com/sponsors/sindresorhus",
+      "https://opencollective.com/express",
+      "https://registry.npmjs.org/accepts/-/accepts-2.0.0.tgz",
+      "https://registry.npmjs.org/body-parser/-/body-parser-2.3.0.tgz",
+      "https://registry.npmjs.org/bytes/-/bytes-3.1.2.tgz",
+      "https://registry.npmjs.org/call-bind-apply-helpers/-/call-bind-apply-helpers-1.0.2.tgz",
+      "https://registry.npmjs.org/call-bound/-/call-bound-1.0.4.tgz",
+      "https://registry.npmjs.org/content-disposition/-/content-disposition-1.1.0.tgz",
+      "https://registry.npmjs.org/content-type/-/content-type-1.0.5.tgz",
+      "https://registry.npmjs.org/content-type/-/content-type-2.1.0.tgz",
+      "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.2.2.tgz",
+      "https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz",
+      "https://registry.npmjs.org/debug/-/debug-4.4.3.tgz",
+      "https://registry.npmjs.org/depd/-/depd-2.0.0.tgz",
+      "https://registry.npmjs.org/dunder-proto/-/dunder-proto-1.0.1.tgz",
+      "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz",
+      "https://registry.npmjs.org/encodeurl/-/encodeurl-2.0.0.tgz",
+      "https://registry.npmjs.org/es-define-property/-/es-define-property-1.0.1.tgz",
+      "https://registry.npmjs.org/es-errors/-/es-errors-1.3.0.tgz",
+      "https://registry.npmjs.org/es-object-atoms/-/es-object-atoms-1.1.2.tgz",
+      "https://registry.npmjs.org/escape-html/-/escape-html-1.0.3.tgz",
+      "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz",
+      "https://registry.npmjs.org/express/-/express-5.2.1.tgz",
+      "https://registry.npmjs.org/finalhandler/-/finalhandler-2.1.1.tgz"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "package.json",
+    "bytes": 430,
+    "sha256": "36c3b2f9b1846ea25a381f4b322aff7c91cea6c986f3f635d96204fc30ca964a",
+    "lines": 18,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "script.js",
+    "bytes": 100508,
+    "sha256": "a7812e5a67872b66ebbeb5fccaa77b303ab43464c091e4191637a39f64e0cb8e",
+    "lines": 2042,
+    "links": [
+      "http://www.w3.org/2000/svg"
+    ],
+    "risk_terms": {
+      "localStorage": 2,
+      "password_hash": 0,
+      "innerHTML": 39,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "scripts/hash-password.js",
+    "bytes": 398,
+    "sha256": "4700135ebba998d1d9402ee278b1815212aaf837a93810a0ece4e8721d5b9730",
+    "lines": 10,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "server.js",
+    "bytes": 24498,
+    "sha256": "a8936501cb56f2ebd71ff4abd68e13c780f6e83dbe3a351f716ae15d1dfe548c",
+    "lines": 102,
+    "links": [
+      "https://t.me/HarryScloser6"
+    ],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 10,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 1,
+      "data.json": 2,
+      "select=\\*": 9
+    }
+  },
+  {
+    "file": "style.css",
+    "bytes": 47528,
+    "sha256": "4b0c242560bfba7f777167270ea0723530889341b2e9abd7914982d1f60857b3",
+    "lines": 983,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "supabase/migrations/001_marketplace_initial.sql",
+    "bytes": 6498,
+    "sha256": "1fdb24ee2e4e2ea4dda14ea3d09b87610bab7048b02232afe49b81e5642d67ad",
+    "lines": 143,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 1,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 5,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "sw.js",
+    "bytes": 611,
+    "sha256": "ba97e488ea6069a61d66f59bd1831d0bd8377fed9f95f7d8cf19ccf0c3331e68",
+    "lines": 10,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  },
+  {
+    "file": "vercel.json",
+    "bytes": 474,
+    "sha256": "6da205476f3117ea8a714f9798afbd04348d42293b6b968843bdc2893bbcf02e",
+    "lines": 26,
+    "links": [],
+    "risk_terms": {
+      "localStorage": 0,
+      "password_hash": 0,
+      "innerHTML": 0,
+      "SERVICE_ROLE": 0,
+      "data.json": 0,
+      "select=\\*": 0
+    }
+  }
+]

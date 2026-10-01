@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.vercel/
+*.log
+coverage/
+.DS_Store
+*.tmp
