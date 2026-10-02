@@ -1,9 +1,7 @@
-.env
-.env.*
-!.env.example
-node_modules/
-.vercel/
-*.log
-coverage/
-.DS_Store
-*.tmp
+# Android secrets and build outputs
+android/local.properties
+android/.gradle/
+android/build/
+android/app/build/
+*.keystore
+*.jks
