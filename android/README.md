@@ -22,7 +22,7 @@ cd android
 ./gradlew test
 ```
 
-تحتاج البيئة Android SDK 35 وJDK 17. هذه الـSandbox لا تحتوي SDK/Gradle/ADB حالياً، لذلك يلزم تشغيل البناء على Android Studio أو CI مزود بـ Android SDK. لا يوجد APK مُعلن عنه قبل إتمام هذا التحقق.
+تحتاج البيئة Android SDK 36 وJDK 17. يمكن تشغيل البناء عبر Android Studio أو CI مزود بـ Android SDK.
 
 ## الحالة الحالية
 

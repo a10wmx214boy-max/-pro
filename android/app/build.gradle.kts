@@ -1,4 +1,5 @@
 import java.util.Properties
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     id("com.android.application")
@@ -10,14 +11,15 @@ plugins {
 val local = Properties().apply { rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use(::load) }
 fun config(name: String) = local.getProperty(name, "")
 
-android { namespace = "com.shorja.chat"; compileSdk = 35
-    defaultConfig { applicationId = "com.shorja.chat"; minSdk = 26; targetSdk = 35; versionCode = 1000; versionName = "1.000"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"; vectorDrawables { useSupportLibrary = true } }
+android { namespace = "com.shorja.chat"; compileSdk = 36
+    defaultConfig { applicationId = "com.shorja.chat"; minSdk = 26; targetSdk = 36; versionCode = 1000; versionName = "1.000"; testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"; vectorDrawables { useSupportLibrary = true } }
     buildFeatures { compose = true; buildConfig = true }
     buildTypes { release { isMinifyEnabled = false; proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro") } }
     compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
-    kotlinOptions { jvmTarget = "17" }
     buildTypes.all { buildConfigField("String", "SUPABASE_URL", "\"${config("SUPABASE_URL")}\""); buildConfigField("String", "SUPABASE_KEY", "\"${config("SUPABASE_KEY")}\"") }
 }
+
+kotlin { compilerOptions { jvmTarget.set(JvmTarget.JVM_17) } }
 
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2025.02.00"))
