@@ -109,3 +109,7 @@ psql "$TEST_DATABASE_URL" -v a="AUTH_A_UUID" -v b="AUTH_B_UUID" -f tests/rls.sql
 
 ## 9. ما يلزم قبل الإنتاج
 راجع قائمة النواقص في DELIVERY: اختبار تشغيل ومراجعة SQL، pagination للمفضلة/المحادثات والإدارة، SEO للإعلانات، تقوية UX، مراجعة حماية الملفات ورفع الفيديو، MFA، تعطيل ذاتي وتصدير كامل وإدارة جلسات تفصيلية. المدونة والوظائف صفحات محتوى قابلة للتحرير وليستا CMS متعدد المقالات ونظام توظيف كامل.
+
+## Android messaging app
+
+The repository now includes an independent native Android messaging module at [`android/`](android/). It connects to the existing Supabase project using the publishable key only, with a tracked migration for conversations, chat messages, receipts, blocks, groups, Storage buckets, RLS, and Realtime publication. See [`android/README.md`](android/README.md) for setup and the current implementation boundary.

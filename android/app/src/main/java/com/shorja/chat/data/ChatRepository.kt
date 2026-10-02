@@ -4,9 +4,8 @@ import com.shorja.chat.model.*
 import io.github.jan.supabase.auth.providers.Email
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Order
-import io.github.jan.supabase.realtime.channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import java.time.Instant
 
 class ChatRepository {
     val currentUserId: String? get() = supabase.auth.currentUserOrNull()?.id
@@ -40,8 +39,8 @@ class ChatRepository {
         require(text.trim().isNotEmpty() && text.length <= 10000)
         return supabase.from("chat_messages").insert(MessageInsert(conversationId, uid, text.trim(), reply_to_message_id = replyTo)) { select() }.decodeSingle()
     }
-    suspend fun editMessage(id: String, text: String) = supabase.from("chat_messages").update(mapOf("content" to text.trim(), "is_edited" to true)) { filter { eq("id", id) } }
-    suspend fun deleteMessage(id: String) = supabase.from("chat_messages").update(mapOf("content" to null, "deleted_at" to "now()")) { filter { eq("id", id) } }
+    suspend fun editMessage(id: String, text: String) = supabase.from("chat_messages").update(mapOf("content" to text.trim(), "updated_at" to Instant.now().toString(), "is_edited" to true)) { filter { eq("id", id) } }
+    suspend fun deleteMessage(id: String) = supabase.from("chat_messages").update(mapOf("content" to null, "deleted_at" to Instant.now().toString(), "updated_at" to Instant.now().toString())) { filter { eq("id", id) } }
     fun messageFlow(conversationId: String): Flow<List<ChatMessage>> = supabase.from("chat_messages").selectAsFlow(ChatMessage::id) { filter { eq("conversation_id", conversationId) } }
-    suspend fun markRead(conversationId: String) { currentUserId?.let { supabase.from("conversation_members").update(mapOf("last_read_at" to "now()")) { filter { eq("conversation_id", conversationId); eq("user_id", it) } } } }
+    suspend fun markRead(conversationId: String) { currentUserId?.let { supabase.from("conversation_members").update(mapOf("last_read_at" to Instant.now().toString())) { filter { eq("conversation_id", conversationId); eq("user_id", it) } } } }
 }
